@@ -8,8 +8,12 @@
       </v-btn>
       <v-list>
         <v-subheader>Sort By...</v-subheader>
-        <v-list-tile v-for="item in sortList" :key="item.value" @click="sort(item.value)">
-        <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+        <v-list-tile 
+          v-for="item in sortList" 
+          v-bind:class="{ selected: selected === item.value }" 
+          :key="item.value" 
+          @click="sort(item.value)">
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -33,6 +37,11 @@ export default {
       sortList: sortList
     }
   },
+  computed: {
+    selected () {
+      return this.$store.state.sort
+    }
+  },
   methods: {
     sort (value) {
       this.$store.commit('updateSort', value)
@@ -42,4 +51,7 @@ export default {
 </script>
 
 <style scoped>
+  .selected {
+    background-color: #eee
+  }
 </style>
