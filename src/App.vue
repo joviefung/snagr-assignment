@@ -1,9 +1,7 @@
 <template>
   <v-app id="app" light>
     <v-container grid-list-md text-xs-center list-container>
-      <v-toolbar color="primary" dark>
-        <h1>People List</h1>
-      </v-toolbar>
+      <AppToolbar />
       <v-progress-linear v-if="isLoading" color="accent" height=5 indeterminate />
       <PeopleList />
     </v-container>
@@ -16,6 +14,7 @@
 <script>
 import PeopleList from './components/PeopleList'
 import Fab from './components/Fab'
+import AppToolbar from './components/AppToolbar'
 import NotificationSnackbar from './components/NotificationSnackbar'
 import ApiService from './services/apiService'
 
@@ -24,6 +23,7 @@ export default {
   components: {
     PeopleList,
     Fab,
+    AppToolbar,
     NotificationSnackbar
   },
   mounted () {

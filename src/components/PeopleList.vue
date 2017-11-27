@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     peopleList () {
-      return this.$store.state.peopleList
+      return this.$store.getters.sortedPeopleList
     }
   }
 }
