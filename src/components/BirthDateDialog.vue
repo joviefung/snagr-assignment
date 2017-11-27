@@ -40,6 +40,7 @@ export default {
       if (this.birthdate === null) {
         this.birthdate = defaultBirthdate
       }
+      this.$emit('dateChanged', this.birthdate)
     }
   },
   methods: {

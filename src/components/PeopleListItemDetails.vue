@@ -3,7 +3,7 @@
     <v-card-text>
       <v-layout column>
         <v-flex>
-          Country:   {{ item.Country }}
+          Country: {{ item.Country }}
         </v-flex>
         <v-flex>
           <div class="block">Gender: </div>
@@ -12,12 +12,17 @@
           </div>
         </v-flex>
         <v-flex>
-          Birth Date:   {{ item.Birthdate }}
+          Birth Date: {{ birthdateString }}
         </v-flex>
         <v-flex>
           <div class="block">Favorite Color:</div>
-          <div class="color-box block" :style="{ backgroundColor: item.FavoriteColor }" />
-          <div class="block">{{ item.FavoriteColor }}</div>
+          <div 
+            class="color-box block"
+            v-if="!!item.FavoriteColor"
+            :style="{ backgroundColor: item.FavoriteColor }" 
+          />
+          <div class="block" v-if="!!item.FavoriteColor">{{ item.FavoriteColor }}</div>
+          <div class="block" v-if="!item.FavoriteColor">No Information</div>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -31,6 +36,14 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    birthdateString () {
+      let [year, month, date] = this.item.Birthdate.split('T')[0].split('-')
+      let [hour, minute, second] = this.item.Birthdate.split('T')[1].split(':')
+
+      return new Date(year, month, date, hour, minute, second).toLocaleDateString()
     }
   }
 }

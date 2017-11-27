@@ -5,7 +5,7 @@
     </div>
         
     <div class="action">
-      <v-btn flat icon color="warn" @click.native.stop="confirmDeletePerson">
+      <v-btn flat icon color="accent" @click.native.stop="confirmDeletePerson">
         <v-icon>delete</v-icon>
       </v-btn>
     </div>

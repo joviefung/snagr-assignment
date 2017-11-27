@@ -8,10 +8,7 @@ import App from './App'
 
 Vue.use(Vuetify, {
   theme: {
-    primary: '#3f51b5',
-    secondary: '#555555',
-    accent: '#e91e63',
-    warn: '#f44336'
+    accent: '#f46542'
   }
 })
 Vue.config.productionTip = false

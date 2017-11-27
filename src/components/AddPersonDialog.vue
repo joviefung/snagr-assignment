@@ -14,7 +14,9 @@
                   label="First Name" 
                   v-model="firstName"
                   prepend-icon="person"
-                  :rules="[v => !/\n|,/.test(v) || 'No Comma or NewLine']"
+                  required
+                  :rules="[v => (!!v && v != '') || 'First name is required',
+                           v => !/\n|,/.test(v) || 'No Comma or NewLine']"
                 />
               </v-flex>
               <v-flex xs12 sm6 md4>
@@ -32,6 +34,8 @@
                   label="Country"
                   prepend-icon="place"
                   max-height=200
+                  required
+                  :rules="[v => (!!v && v != '') || 'Country is required']"
                   autocomplete
                 />
               </v-flex>
@@ -40,11 +44,15 @@
                 label="Gender"
                 v-model="gender"
                 prepend-icon="wc"
+                required
+                :rules="[v => (!!v && v != '') || 'Gender is required']"
                 :items="['Male','Female']"
               />
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <BirthDateDialog v-model="birthdate" />
+                <BirthDateDialog 
+                  @dateChanged="onDateChanged" 
+                />
               </v-flex>
               <v-flex xs12 sm6 md4>
                 <v-select
@@ -63,9 +71,9 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn class="primary" :disabled="!valid" @click="addPerson()">Add</v-btn>
-        <v-btn class="warn" @click="resetForm()" dark>Reset</v-btn>
-        <v-btn class="secondary" dark @click="addPersonDialog = false">Cancel</v-btn>
+        <v-btn color="primary" flat :disabled="!valid" @click="addPerson()">Add</v-btn>
+        <v-btn color="accent" flat @click="resetForm()">Reset</v-btn>
+        <v-btn color="secondary" flat @click="addPersonDialog = false">Cancel</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -101,6 +109,9 @@ export default {
     },
     resetForm () {
       this.$refs['form'].reset()
+    },
+    onDateChanged (date) {
+      this.birthdate = date
     },
     addPerson () {
       let person = {

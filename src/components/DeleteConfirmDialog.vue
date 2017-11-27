@@ -9,8 +9,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="warn" dark @click="deletePerson"> Confirm </v-btn>
-        <v-btn color="secondary" dark @click="closeDialog"> Cancel </v-btn>
+        <v-btn color="primary" flat @click="deletePerson"> Confirm </v-btn>
+        <v-btn color="secondary" flat @click="closeDialog"> Cancel </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
