@@ -8,7 +8,8 @@ import App from './App'
 
 Vue.use(Vuetify, {
   theme: {
-    accent: '#f46542'
+    accent: '#f46542',
+    toolbarText: '#ffffff'
   }
 })
 Vue.config.productionTip = false

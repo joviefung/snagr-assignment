@@ -7,7 +7,13 @@
         </v-flex>
         <v-flex>
           <div class="block">Gender: </div>
-          <div class="block" :class="{ 'male': item.Gender === 'Male', 'female': item.Gender === 'Female'}">
+          <div 
+            class="block gender" 
+            :class="{ 
+              'blue--text': item.Gender === 'Male', 
+              'pink--text': item.Gender === 'Female'
+            }"
+          >
             {{ item.Gender }}
           </div>
         </v-flex>
@@ -51,18 +57,13 @@ export default {
 
 <style scoped>
   .details {
-    background-color: #e6e6ee;
     padding: 0px 60px;
+    background: rgba(0,0,0,0.1);
   }
   .block {
     display: inline-block
   }
-  .male {
-    color: blue;
-    margin-left: 6px;
-  }
-  .female {
-    color: red;
+  .gender {
     margin-left: 6px;
   }
   .color-box {

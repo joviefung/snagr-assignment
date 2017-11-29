@@ -1,7 +1,7 @@
 <template>
-  <v-app id="app" light>
+  <v-app id="app" :class="{'theme--light': isLight, 'theme--dark': !isLight}">
     <v-container grid-list-md text-xs-center list-container>
-      <AppToolbar />
+      <AppToolbar @click="isLight = false" />
       <v-progress-linear v-if="isLoading" color="accent" height=5 indeterminate />
       <PeopleList />
     </v-container>
@@ -32,6 +32,9 @@ export default {
   computed: {
     isLoading () {
       return this.$store.state.isLoading
+    },
+    isLight () {
+      return this.$store.state.isLight
     }
   },
   methods: {

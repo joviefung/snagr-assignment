@@ -12,18 +12,38 @@ const dynamicSort = (property) => {
   }
 }
 
+const sortByDate = (a, b) => {
+  let [ayear, amonth, aday] = a.Birthdate.split('T')[0].split('-')
+  let [ahour, aminute, asecond] = a.Birthdate.split('T')[1].split(':')
+  let [byear, bmonth, bday] = b.Birthdate.split('T')[0].split('-')
+  let [bhour, bminute, bsecond] = b.Birthdate.split('T')[1].split(':')
+  let aDate = new Date(ayear, amonth, aday, ahour, aminute, asecond)
+  let bDate = new Date(byear, bmonth, bday, bhour, bminute, bsecond)
+
+  if (aDate > bDate) return 1
+  if (aDate < bDate) return -1
+  else return 0
+}
+
 export default new Vuex.Store({
   state: {
     peopleList: null,
     notificationMsg: '',
     isLoading: false,
-    sort: ''
+    sort: 'Id',
+    isLight: true,
+    searchString: ''
   },
   getters: {
-    sortedPeopleList: state => {
+    processedPeopleList: state => {
       if (state.peopleList === null) {
         return null
       }
+
+      let processedList = state.peopleList.filter(item =>
+        item.FirstName.toLowerCase().includes(state.searchString.toLowerCase()) ||
+        item.LastName.toLowerCase().includes(state.searchString.toLowerCase()))
+
       switch (state.sort) {
         case 'Id':
         case 'FirstName':
@@ -31,24 +51,13 @@ export default new Vuex.Store({
         case 'Country':
         case 'Gender':
         case 'FavoriteColor': {
-          return state.peopleList.sort(dynamicSort(state.sort))
+          return processedList.sort(dynamicSort(state.sort))
         }
         case 'Birthdate': {
-          return state.peopleList.sort((a, b) => {
-            let [ayear, amonth, aday] = a.Birthdate.split('T')[0].split('-')
-            let [ahour, aminute, asecond] = a.Birthdate.split('T')[1].split(':')
-            let [byear, bmonth, bday] = b.Birthdate.split('T')[0].split('-')
-            let [bhour, bminute, bsecond] = b.Birthdate.split('T')[1].split(':')
-            let aDate = new Date(ayear, amonth, aday, ahour, aminute, asecond)
-            let bDate = new Date(byear, bmonth, bday, bhour, bminute, bsecond)
-
-            if (aDate > bDate) return 1
-            if (aDate < bDate) return -1
-            else return 0
-          })
+          return processedList.sort(sortByDate)
         }
         default: {
-          return state.peopleList
+          return processedList
         }
       }
     }
@@ -92,6 +101,12 @@ export default new Vuex.Store({
     },
     updateSort (state, value) {
       state.sort = value
+    },
+    toggleLightDarkTheme (state) {
+      state.isLight = !state.isLight
+    },
+    updateSearchString (state, searchString) {
+      state.searchString = searchString
     }
   }
 })

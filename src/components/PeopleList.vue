@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     peopleList () {
-      return this.$store.getters.sortedPeopleList
+      return this.$store.getters.processedPeopleList
     }
   }
 }
