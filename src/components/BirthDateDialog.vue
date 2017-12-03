@@ -2,7 +2,7 @@
   <v-dialog lazy full-width width="290px" v-model="datepickerDialog">
     <v-text-field 
       label="Birth Date" 
-      v-model="birthdate"
+      :value="currentDate"
       prepend-icon="cake"
       slot="activator"
       readonly
@@ -29,6 +29,12 @@ const defaultBirthdate = `${(new Date()).getFullYear() - 30}-${(new Date()).getM
 
 export default {
   name: 'BirthDateDialog',
+  props: {
+    currentDate: {
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       datepickerDialog: false,

@@ -2,6 +2,7 @@
   <v-toolbar color="primary" dark>
     <h1>People List</h1>
     <v-spacer></v-spacer>
+    
     <v-tooltip bottom>
       <v-btn icon dark @click="showSearchBar = !showSearchBar" slot="activator">
         <v-icon>search</v-icon>
@@ -17,12 +18,7 @@
         class="search-bar"
       />
     </v-slide-x-reverse-transition>
-    <v-tooltip bottom>
-      <v-btn icon dark @click="changeTheme" slot="activator">
-        <v-icon>invert_colors</v-icon>
-      </v-btn>
-      <span>Switch Light/Dark Theme</span>
-    </v-tooltip>
+
     <v-menu bottom left>
       <v-tooltip bottom slot="activator">
         <v-btn icon slot="activator" dark>
@@ -41,6 +37,37 @@
         </v-list-tile>
       </v-list>
     </v-menu>
+
+    <v-speed-dial 
+      :direction="'bottom'"
+      :transition="'slide-y-transition'"
+    >
+      <v-btn slot="activator" dark icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+      <v-tooltip left>
+        <v-btn icon dark large @click="expandAll(true)" slot="activator" color="secondary">
+          <v-icon>arrow_drop_down</v-icon>
+        </v-btn>
+        <span>Expand All</span>
+      </v-tooltip>
+
+      <v-tooltip left>
+        <v-btn icon dark large @click="expandAll(false)" slot="activator" color="secondary">
+          <v-icon>arrow_drop_up</v-icon>
+        </v-btn>
+        <span>Collapse All</span>
+      </v-tooltip>
+
+      <v-tooltip left>
+        <v-btn icon dark large @click="changeTheme" slot="activator" color="secondary">
+          <v-icon>invert_colors</v-icon>
+        </v-btn>
+        <span>Switch Light/Dark Theme</span>
+      </v-tooltip>
+    </v-speed-dial>
+
+   
     
   </v-toolbar>
 </template>
@@ -81,6 +108,9 @@ export default {
     },
     updateSearch (newVal) {
       this.$store.commit('updateSearchString', newVal)
+    },
+    expandAll (isExpand) {
+      this.$store.commit('setExpandAll', isExpand)
     }
   }
 }
@@ -88,6 +118,6 @@ export default {
 
 <style scoped>
   .selected {
-    background-color: #eee
+    background: rgba(0,0,0,0.1);
   }
 </style>

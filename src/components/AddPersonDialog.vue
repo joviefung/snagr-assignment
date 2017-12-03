@@ -50,7 +50,8 @@
               />
               </v-flex>
               <v-flex xs12 sm6 md4>
-                <BirthDateDialog 
+                <BirthDateDialog
+                  :currentDate="birthdate"
                   @dateChanged="onDateChanged" 
                 />
               </v-flex>

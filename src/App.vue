@@ -52,19 +52,22 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;  
-  text-align: center;
-}
-.container.grid-list-md.list-container {
-  padding: 0px;
-}
-button.btn {
-  font-weight: 600;
-}
-.progress-linear {
-  margin: 0px;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;  
+    text-align: center;
+  }
+  .container.grid-list-md.list-container {
+    padding: 0px;
+  }
+  button.btn {
+    font-weight: 600;
+  }
+  .progress-linear {
+    margin: 0px;
+  }
+  .speed-dial__list {
+    z-index: 10 !important;
+  }
 </style>

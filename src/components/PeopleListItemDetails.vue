@@ -48,6 +48,7 @@ export default {
     birthdateString () {
       let [year, month, date] = this.item.Birthdate.split('T')[0].split('-')
       let [hour, minute, second] = this.item.Birthdate.split('T')[1].split(':')
+      month = parseInt(month) - 1
 
       return new Date(year, month, date, hour, minute, second).toLocaleDateString()
     }

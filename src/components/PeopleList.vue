@@ -9,8 +9,12 @@
       class="loading"
     />
     <v-slide-y-transition>
-      <v-expansion-panel v-show="peopleList">
-        <v-expansion-panel-content v-for="item in peopleList" :key="item.Id" >
+      <v-expansion-panel v-show="peopleList" v-if="peopleList" expand>
+        <v-expansion-panel-content
+          v-for="item in peopleList"
+          v-model="item.isExpand"
+          :key="item.Id"
+        >
           <PeopleListItem slot="header" :item="item" />
           <PeopleListItemDetails :item="item" />
         </v-expansion-panel-content>
@@ -32,6 +36,11 @@ export default {
   computed: {
     peopleList () {
       return this.$store.getters.processedPeopleList
+    }
+  },
+  methods: {
+    toggleExpandStatus (id) {
+      this.$store.commit('toggleIsExpand', id)
     }
   }
 }

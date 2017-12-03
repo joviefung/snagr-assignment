@@ -60,11 +60,17 @@ export default new Vuex.Store({
           return processedList
         }
       }
+    },
+    isExpandById: (state, id) => {
+      let expandItemById = state.expandList.find(item => item.id === id)
+      return expandItemById ? expandItemById.isExpand : false
     }
   },
   mutations: {
     setPeopleList (state, newList) {
-      state.peopleList = newList
+      state.peopleList = newList.map(item => {
+        return { ...item, isExpand: false }
+      })
     },
     deletePerson (state, id) {
       state.isLoading = true
@@ -85,7 +91,7 @@ export default new Vuex.Store({
       state.isLoading = true
       ApiService.addPersonOnServer(person)
         .then(res => {
-          state.peopleList.push(res.data)
+          state.peopleList.push({ ...res.data, isExpand: false })
           state.notificationMsg = `Add Successfully - New Person ID: ${res.data.Id}`
           state.isLoading = false
         })
@@ -107,6 +113,11 @@ export default new Vuex.Store({
     },
     updateSearchString (state, searchString) {
       state.searchString = searchString
+    },
+    setExpandAll (state, isExpand) {
+      state.peopleList = state.peopleList.map(item => {
+        return { ...item, isExpand: isExpand }
+      })
     }
   }
 })

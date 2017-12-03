@@ -9,6 +9,7 @@ import App from './App'
 Vue.use(Vuetify, {
   theme: {
     accent: '#f46542',
+    secondary: '#1565c0',
     toolbarText: '#ffffff'
   }
 })
