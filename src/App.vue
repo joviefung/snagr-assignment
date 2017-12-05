@@ -26,7 +26,7 @@ export default {
     AppToolbar,
     NotificationSnackbar
   },
-  mounted () {
+  created () {
     this.fetchItem()
   },
   computed: {

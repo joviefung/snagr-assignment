@@ -25,6 +25,61 @@ const sortByDate = (a, b) => {
   else return 0
 }
 
+export const mutations = {
+  setPeopleList (state, newList) {
+    state.peopleList = newList.map(item => {
+      return { ...item, isExpand: false }
+    })
+  },
+  deletePerson (state, id) {
+    state.isLoading = true
+    ApiService.deletePersonOnServer(id)
+      .then(() => {
+        state.peopleList = state.peopleList.filter(item => item.Id !== id)
+        state.notificationMsg = 'Delete Successfully'
+        state.isLoading = false
+      })
+      .catch(err => {
+        state.notificationMsg =
+          `Error ${err.response.status} (${err.response.statusText}): 
+           ${err.response.data.Message}`
+        state.isLoading = false
+      })
+  },
+  addPerson (state, person) {
+    state.isLoading = true
+    ApiService.addPersonOnServer(person)
+      .then(res => {
+        state.peopleList.push({ ...res.data, isExpand: false })
+        state.notificationMsg = `Add Successfully - New Person ID: ${res.data.Id}`
+        state.isLoading = false
+      })
+      .catch(err => {
+        state.notificationMsg =
+          `Error ${err.response.status} (${err.response.statusText}): 
+           ${err.response.data.Message}`
+        state.isLoading = false
+      })
+  },
+  setNotificationMsg (state, notificationMsg) {
+    state.notificationMsg = notificationMsg
+  },
+  updateSort (state, value) {
+    state.sort = value
+  },
+  toggleLightDarkTheme (state) {
+    state.isLight = !state.isLight
+  },
+  updateSearchString (state, searchString) {
+    state.searchString = searchString
+  },
+  setExpandAll (state, isExpand) {
+    state.peopleList = state.peopleList.map(item => {
+      return { ...item, isExpand: isExpand }
+    })
+  }
+}
+
 export default new Vuex.Store({
   state: {
     peopleList: null,
@@ -66,58 +121,5 @@ export default new Vuex.Store({
       return expandItemById ? expandItemById.isExpand : false
     }
   },
-  mutations: {
-    setPeopleList (state, newList) {
-      state.peopleList = newList.map(item => {
-        return { ...item, isExpand: false }
-      })
-    },
-    deletePerson (state, id) {
-      state.isLoading = true
-      ApiService.deletePersonOnServer(id)
-        .then(() => {
-          state.peopleList = state.peopleList.filter(item => item.Id !== id)
-          state.notificationMsg = 'Delete Successfully'
-          state.isLoading = false
-        })
-        .catch(err => {
-          state.notificationMsg =
-            `Error ${err.response.status} (${err.response.statusText}): 
-             ${err.response.data.Message}`
-          state.isLoading = false
-        })
-    },
-    addPerson (state, person) {
-      state.isLoading = true
-      ApiService.addPersonOnServer(person)
-        .then(res => {
-          state.peopleList.push({ ...res.data, isExpand: false })
-          state.notificationMsg = `Add Successfully - New Person ID: ${res.data.Id}`
-          state.isLoading = false
-        })
-        .catch(err => {
-          state.notificationMsg =
-            `Error ${err.response.status} (${err.response.statusText}): 
-             ${err.response.data.Message}`
-          state.isLoading = false
-        })
-    },
-    setNotificationMsg (state, notificationMsg) {
-      state.notificationMsg = notificationMsg
-    },
-    updateSort (state, value) {
-      state.sort = value
-    },
-    toggleLightDarkTheme (state) {
-      state.isLight = !state.isLight
-    },
-    updateSearchString (state, searchString) {
-      state.searchString = searchString
-    },
-    setExpandAll (state, isExpand) {
-      state.peopleList = state.peopleList.map(item => {
-        return { ...item, isExpand: isExpand }
-      })
-    }
-  }
+  mutations
 })

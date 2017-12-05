@@ -6,6 +6,7 @@
       prepend-icon="cake"
       slot="activator"
       readonly
+      required
       :rules="[v => /[\d]{4}-[\d]{2}-[\d]{2}$/.test(v) || 'Invalid Date']"
     />
     <v-date-picker 

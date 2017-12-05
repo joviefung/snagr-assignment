@@ -36,15 +36,9 @@ export default {
     }
   },
   methods: {
-    openSnackbar () {
-      this.snackbar = true
-    },
     clearStorenotificationMsg () {
       this.$store.commit('setNotificationMsg', '')
     }
   }
 }
 </script>
-
-<style scoped>
-</style>
